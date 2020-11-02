@@ -1,6 +1,11 @@
 library(purrr)
 library(tensorflow)
 library(keras)
+library(magick)
+library(spatstat)
+library(imager)
+
+
 
 #input the dataset
 cifar <- dataset_cifar10()
@@ -11,10 +16,11 @@ class_names <- c('airplane', 'automobile', 'bird', 'cat', 'deer',
 
 
 # creating the training and testing sets
-x_train <- cifar$train$x/255
-x_test <- cifar$test$x/255
-y_train <- to_categorical(cifar$train$y, num_classes = 10)
-y_test <- to_categorical(cifar$test$y, num_classes = 10)
+x_train <- cifar$train$x/255 #size is 50000,32,32,3
+x_test <- cifar$test$x/255 #size is 10000, 32, 32, 3
+y_train <- to_categorical(cifar$train$y, num_classes = 10) #50000, 10
+y_test <- to_categorical(cifar$test$y, num_classes = 10) #10000, 10
+
 
 #create the model using specific layers for a CNN
 model <- keras_model_sequential() %>% 
@@ -57,6 +63,7 @@ model %>% compile(
   metrics = "accuracy"
 )
 
+model %>% save("cifar_cnn")
 #run the model using epochs and then put into a history where more
 #statistics will be available
 history <- model %>% fit(
@@ -69,4 +76,14 @@ history <- model %>% fit(
 
 #plot the accuracy models
 plot(history)
+
+#loading practice file
+im <- load.image("deer_sample_img.png")
+im <- im/255
+
+# supposed to run the image above through the model to predict one of the classes
+# from the class_list 
+result <- predict_classes(model, im, batch_size = NULL)
+#Prints the class name the model predicts
+print(class_names[result[0]])
 
