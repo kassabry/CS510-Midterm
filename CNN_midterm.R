@@ -1,11 +1,5 @@
-library(purrr)
 library(tensorflow)
 library(keras)
-library(magick)
-library(spatstat)
-library(imager)
-
-
 
 #input the dataset
 cifar <- dataset_cifar10()
@@ -63,7 +57,6 @@ model %>% compile(
   metrics = "accuracy"
 )
 
-model %>% save("cifar_cnn")
 #run the model using epochs and then put into a history where more
 #statistics will be available
 history <- model %>% fit(
@@ -78,12 +71,12 @@ history <- model %>% fit(
 plot(history)
 
 #loading practice file
-im <- load.image("deer_sample_img.png")
-im <- im/255
+#im <- load.image("deer_sample_img.png") - this loads the image file, but this is already in the testing folder
+#im <- im/255 - resizes the image, but unnecessary for this script
 
 # supposed to run the image above through the model to predict one of the classes
 # from the class_list 
 #result <- predict_classes(model, im, batch_size = NULL) - There are a lot of errors with this line
 #Prints the class name the model predicts
-#print(class_names[result[0]]) - Because of the code before it, this line is alos broken
+#print(class_names[result[0]]) - Because of the code before it, this line is alsp broken
 
