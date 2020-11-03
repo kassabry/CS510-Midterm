@@ -18,6 +18,7 @@ The model is trained to use accuracy the basis of the testing benchmark. Essenti
 
 The running of this code is pretty straightforward. The code is based mainly off two libraries: keras and tensorflow. The data used, CIFAR10, comes installed with the keras package so no extra data needs to be used. 
 In order to run this code, all you need to do it highlight all the code and hit run. No special instructions. 
+Before the model begins to fit to the training data, the code will print out a summary of the model that it is using. It will outline the name and type of each layer as well as the parameters it contains. It will be easy to miss, but it can be interesting to see so you might have to scroll up to see it.
 However, one thing to note: since this code is running a CNN model on 50,000 imgaes it will take about 10 minutes complete. If you exit before this is done then it will ahve to be restarted if the same resutls are to be expected. The progess will be printed along the way through the EPOCHS including the amount of time and epochs left. 
 
 By the end of the code, there should be two graphs that are produce each with two separate lines with tracked points. This is mainly just to demonstrate how the accuracy of the model improves overtime and how the loss decreases overtime. 
