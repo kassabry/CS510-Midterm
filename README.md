@@ -32,4 +32,4 @@ The testing that was conducted was simply sending an image that would be include
 
 Within the Testing folder, you will find a jupyter notebook that contains the python code, an HTML copy of that jupyter notebook, the screenshot of the deer, and the screenshot just showing the test and not the rest of the model. 
 
-! [] (Testing/deer_sample_img.png)
+<img src="Testing/deer_sample_img.png">
