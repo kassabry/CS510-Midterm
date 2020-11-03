@@ -83,7 +83,7 @@ im <- im/255
 
 # supposed to run the image above through the model to predict one of the classes
 # from the class_list 
-result <- predict_classes(model, im, batch_size = NULL)
+#result <- predict_classes(model, im, batch_size = NULL) - There are a lot of errors with this line
 #Prints the class name the model predicts
-print(class_names[result[0]])
+#print(class_names[result[0]]) - Because of the code before it, this line is alos broken
 
