@@ -1,3 +1,7 @@
+
+
+library(tensorflow)
+library(keras)
 install_keras(
   method = c("auto", "virtualenv", "conda"),
   conda = "auto",
@@ -6,11 +10,11 @@ install_keras(
   extra_packages = c("tensorflow-hub")
 )
 
-library(tensorflow)
-library(keras)
-
 #input the dataset
 cifar <- dataset_cifar10()
+# Importing the MNIST Dataset which will be used for the Dense Network
+mnist <- dataset_mnist()
+
 
 #creating the labels used for the pictures
 class_names <- c('airplane', 'automobile', 'bird', 'cat', 'deer',
@@ -22,6 +26,12 @@ cnn_x_train <- cifar$train$x/255 #size is 50000,32,32,3
 cnn_x_test <- cifar$test$x/255 #size is 10000, 32, 32, 3
 cnn_y_train <- to_categorical(cifar$train$y, num_classes = 10) #50000, 10
 cnn_y_test <- to_categorical(cifar$test$y, num_classes = 10) #10000, 10
+
+# creating the training and testing sets for the Dense Model
+d_x_train <- mnist$train$x/255
+d_x_test <- mnist$test$x/255
+d_y_train <- to_categorical(mnist$train$y, num_classes = 10)
+d_y_test <- to_categorical(mnist$test$y, num_classes = 10)
 
 # Reshaping the training sets into a 1 dimensional array so that a dense model
 # can be used
@@ -61,6 +71,27 @@ cnn_model <- keras_model_sequential() %>%
 #prints out the layout of the model
 summary(cnn_model)
 
+# Creating the model that will be trained on
+dense_model <- keras_model_sequential() %>%
+  # Dense layer will be used actually run the code with 2 layers each with
+  # 256 nodes
+  layer_dense(256, activation='relu') %>%
+  layer_dense(256, activation='relu') %>%
+  
+  # The last dense layer will be used to categorize the output into one of the
+  # 10 categories the data falls into
+  layer_dense(10, activation='softmax')
+
+# Compiling the model in order to be able to actually the run the model
+dense_model %>% compile(
+  
+  optimizer = 'adadelta',
+  loss = 'categorical_crossentropy',
+  metrics = "accuracy"
+)
+
+
+
 #create the model
 cnn_model %>% compile(
   # each optimizer gives different results, but adam tends to be the best
@@ -96,44 +127,6 @@ cnn_history_10 <- cnn_model %>% fit(
   validation_data = list(cnn_x_test, cnn_y_test),
   shuffle = TRUE
 )
-
-#plot the accuracy models
-plot(cnn_history_1)
-plot(cnn_history_5)
-plot(cnn_history_10)
-
-
-
-#Dense Section
-# -----------------------------
-# Importing the MNIST Dataset which will be used for the Dense Network
-mnist <- dataset_mnist()
-
-# creating the training and testing sets for the Dense Model
-d_x_train <- mnist$train$x/255
-d_x_test <- mnist$test$x/255
-d_y_train <- to_categorical(mnist$train$y, num_classes = 10)
-d_y_test <- to_categorical(mnist$test$y, num_classes = 10)
-
-# Creating the model that will be trained on
-dense_model <- keras_model_sequential() %>%
-  # Dense layer will be used actually run the code with 2 layers each with
-  # 256 nodes
-  layer_dense(256, activation='relu') %>%
-  layer_dense(256, activation='relu') %>%
-  
-  # The last dense layer will be used to categorize the output into one of the
-  # 10 categories the data falls into
-  layer_dense(10, activation='softmax')
-
-# Compiling the model in order to be able to actually the run the model
-dense_model %>% compile(
-  
-  optimizer = 'adadelta',
-  loss = 'categorical_crossentropy',
-  metrics = "accuracy"
-)
-
 # Fits the model based on the training and testing data with 10 epochs as a 
 # standard
 dense_history_10 <- dense_model %>% fit(
@@ -144,5 +137,10 @@ dense_history_10 <- dense_model %>% fit(
   shuffle = TRUE
 )
 
+
+#plot the accuracy models
+plot(cnn_history_1)
+plot(cnn_history_5)
+plot(cnn_history_10)
 #Plot the model results for a better idea of the results
 plot(dense_history_10)
