@@ -16,7 +16,7 @@ wasn't enough". Keras and Tensorflow require not necessarily python, but conda.
 In addition, they both require a specific kind of conda which is mini-conda. In
 order to fix these connections, I added a section of code before calling the
 libraries, which should fix the issues that individuals were having with it by
-installing Keras, with Tensorflow, with the correct requirements attached.
+installing Keras, with Tensorflow, with the correct requirements attached. Along with that I added the install.packages code for both packages that are being used in my code. There was a note to do that in one of my reviews, so I added that along with the special installation of keras.
 
 ### 2. Model/Data Understanding
 
