@@ -52,13 +52,13 @@ The results of this project are very predictable. Below are the graphs of the CN
 
 ![Figure 6: 1 Epoch CNN Run](Results/cnn_epoch_1.png)
 
-![Figure 6: 5 Epoch CNN Run](Results/cnn_epoch_5.png)
+![Figure 7: 5 Epoch CNN Run](Results/cnn_epoch_5.png)
 
-![Figure 7: 10 Epoch CNN Run](Results/cnn_epoch_10.png)
+![Figure 8: 10 Epoch CNN Run](Results/cnn_epoch_10.png)
 
 For the Dense network, I decided to only run 10 epochs due to the fact that the main purpose of including it was to demonstrate the diversity of the two models. The results showed that overtime the model vastly improved, as well as it taking significantly less time than the CNN counterpart. 
 
-![Figure 8: Dense Network Results](Results/dense_epoch_10.png)
+![Figure 9: Dense Network Results](Results/dense_epoch_10.png)
 
 Throughout each of the results, one thing you can notice is that there are two different lines, or sets of points: one for the validation data and one for the training data. The validation accuracy and loss is determined when the model gets put up against a different set of the data set which was pre allocated. Although this factor is important, the main result to view is the training accuracy, or the red line/points. The training accuracy is a better indicator of how well the model will perform with the data. 
 
@@ -68,11 +68,11 @@ Another important thing to note about the results. THe results may change slight
 
 The final section that I think would be best in the overview of this project is in regards to the testing aspect of it. In order to test an algorithm, you would have to pass it something that resembles what it has seen. For example, for this project, in order to test the CNN model, I passed a picture of a deer through it. This is because the data the model was trained on had deer as one of the categories. This doesn't mean you have to pass it a picture it has already seen, but it has to be similar. The deer picture that was passed through was not in the CIFAR10 dataset, but since the model already knew how to categorize deer, the model could correctly guess the picture. I passed this picture through the model:
 
-![Figure 9: Deer Picture Used in Model Testing](Testing/deer_sample_img.png)
+![Figure 10: Deer Picture Used in Model Testing](Testing/deer_sample_img.png)
 
 From this the model was correctly able to guess that this picture was in fact a picture of a deer. 
 
-![Figure 10: Results from Testing](Testing/screenshot_of_test.png)
+![Figure 11: Results from Testing](Testing/screenshot_of_test.png)
 
 ## Conclusion
 
